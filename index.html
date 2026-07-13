@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ระบบรายงานโครงการโรงเรียนบ้านจิก</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">ต้นแบบเว็บแอป</p>
+      <h1>ระบบรายงานโครงการโรงเรียนบ้านจิก</h1>
+      <p>ออกแบบสำหรับครู ใช้งานง่าย บันทึกได้หลายโครงการ แนบรูปภาพ และสร้างรายงานพร้อมพิมพ์</p>
+    </div>
+    <button id="printReport" class="primary">พิมพ์รายงาน</button>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="รายการโครงการ">
+      <div class="sidebar-head">
+        <h2>โครงการที่บันทึก</h2>
+        <button id="newProject" class="secondary">+ โครงการใหม่</button>
+      </div>
+      <div id="projectList" class="project-list"></div>
+      <p class="hint">ข้อมูลถูกเก็บไว้ในเครื่องนี้ด้วย Local Storage เหมาะสำหรับทดลองใช้งานต้นแบบ</p>
+    </aside>
+
+    <section class="workspace">
+      <form id="projectForm">
+        <section class="card">
+          <h2>1. ข้อมูลพื้นฐานโครงการ</h2>
+          <div class="grid two">
+            <label>ชื่อโครงการ<input name="projectName" required placeholder="เช่น โครงการส่งเสริมการอ่าน"></label>
+            <label>ปีการศึกษา<input name="academicYear" placeholder="เช่น 2569"></label>
+            <label>ผู้รับผิดชอบ<input name="owner" placeholder="ชื่อครูผู้รับผิดชอบ"></label>
+            <label>หน่วยงาน/กลุ่มงาน<input name="department" placeholder="เช่น งานวิชาการ"></label>
+            <label>ระยะเวลาเริ่มต้น<input name="startDate" type="date"></label>
+            <label>ระยะเวลาสิ้นสุด<input name="endDate" type="date"></label>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>2. หลักการและเหตุผล</h2>
+          <textarea name="rationale" rows="5" placeholder="อธิบายความเป็นมา ความจำเป็น และเหตุผลของโครงการ"></textarea>
+        </section>
+
+        <section class="card">
+          <h2>3. วัตถุประสงค์และกลุ่มเป้าหมาย</h2>
+          <div class="grid two">
+            <label>วัตถุประสงค์<textarea name="objectives" rows="5" placeholder="ระบุเป็นข้อ ๆ"></textarea></label>
+            <label>กลุ่มเป้าหมาย<textarea name="targetGroup" rows="5" placeholder="เช่น นักเรียนชั้น ป.1-ป.6 จำนวน 120 คน"></textarea></label>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-head"><h2>4. กิจกรรมและวันดำเนินงาน</h2><button type="button" id="addActivity" class="secondary">+ เพิ่มกิจกรรม</button></div>
+          <div id="activities" class="dynamic-list"></div>
+        </section>
+
+        <section class="card">
+          <div class="section-head"><h2>5. งบประมาณและรายการค่าใช้จ่าย</h2><button type="button" id="addExpense" class="secondary">+ เพิ่มรายการ</button></div>
+          <div class="budget-summary">รวมงบประมาณ: <strong id="budgetTotal">0.00 บาท</strong></div>
+          <div id="expenses" class="dynamic-list"></div>
+        </section>
+
+        <section class="card">
+          <h2>6. ผลการดำเนินงานและตัวชี้วัด</h2>
+          <div class="grid two">
+            <label>ผลการดำเนินงาน<textarea name="results" rows="5" placeholder="สรุปสิ่งที่ดำเนินการและผลที่เกิดขึ้น"></textarea></label>
+            <label>ตัวชี้วัดความสำเร็จ<textarea name="indicators" rows="5" placeholder="เช่น ผู้เรียนร้อยละ 80 มีผลประเมินผ่านเกณฑ์"></textarea></label>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>7. ปัญหา อุปสรรค และข้อเสนอแนะ</h2>
+          <div class="grid two">
+            <label>ปัญหา/อุปสรรค<textarea name="problems" rows="4"></textarea></label>
+            <label>ข้อเสนอแนะ<textarea name="suggestions" rows="4"></textarea></label>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>8. แนบรูปภาพหลักฐาน</h2>
+          <label class="upload">เลือกรูปภาพ<input id="imageInput" type="file" accept="image/*" multiple></label>
+          <div id="imagePreview" class="image-grid"></div>
+        </section>
+
+        <div class="actions no-print">
+          <button type="submit" class="primary">บันทึกโครงการ</button>
+          <button type="button" id="clearForm" class="secondary">ล้างฟอร์ม</button>
+        </div>
+      </form>
+
+      <section id="printArea" class="report card">
+        <h2>10. ตัวอย่างรายงานพร้อมพิมพ์</h2>
+        <div id="reportContent" class="report-content"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
